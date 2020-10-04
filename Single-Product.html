@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Single Product</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Grocery page">
+  <meta name="keywords" content="Grocery">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="img/logo.png" rel="icon">
+  <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style-2.css">
+  <link rel="stylesheet" type="text/css" href="css/owl.carousel.css">
+  <link rel="stylesheet" type="text/css" href="css/owl.theme.default.css">
+
+  <script>
+    function imageZoom(imgID, resultID) {
+      var img, lens, result, cx, cy;
+      img = document.getElementById(imgID);
+      result = document.getElementById(resultID);
+      /*create lens:*/
+      lens = document.createElement("DIV");
+      lens.setAttribute("class", "img-zoom-lens");
+      /*insert lens:*/
+      img.parentElement.insertBefore(lens, img);
+      /*calculate the ratio between result DIV and lens:*/
+      cx = result.offsetWidth / lens.offsetWidth;
+      cy = result.offsetHeight / lens.offsetHeight;
+      /*set background properties for the result DIV:*/
+      result.style.backgroundImage = "url('" + img.src + "')";
+      result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+      /*execute a function when someone moves the cursor over the image, or the lens:*/
+      lens.addEventListener("mousemove", moveLens);
+      img.addEventListener("mousemove", moveLens);
+      /*and also for touch screens:*/
+      lens.addEventListener("touchmove", moveLens);
+      img.addEventListener("touchmove", moveLens);
+
+      function moveLens(e) {
+        var pos, x, y;
+        /*prevent any other actions that may occur when moving over the image:*/
+        e.preventDefault();
+        /*get the cursor's x and y positions:*/
+        pos = getCursorPos(e);
+        /*calculate the position of the lens:*/
+        x = pos.x - (lens.offsetWidth / 2);
+        y = pos.y - (lens.offsetHeight / 2);
+        /*prevent the lens from being positioned outside the image:*/
+        if (x > img.width - lens.offsetWidth) {
+          x = img.width - lens.offsetWidth;
+        }
+        if (x < 0) {
+          x = 0;
+        }
+        if (y > img.height - lens.offsetHeight) {
+          y = img.height - lens.offsetHeight;
+        }
+        if (y < 0) {
+          y = 0;
+        }
+        /*set the position of the lens:*/
+        lens.style.left = x + "px";
+        lens.style.top = y + "px";
+        /*display what the lens "sees":*/
+        result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+      }
+
+      function getCursorPos(e) {
+        var a, x = 0,
+          y = 0;
+        e = e || window.event;
+        /*get the x and y positions of the image:*/
+        a = img.getBoundingClientRect();
+        /*calculate the cursor's x and y coordinates, relative to the image:*/
+        x = e.pageX - a.left;
+        y = e.pageY - a.top;
+        /*consider any page scrolling:*/
+        x = x - window.pageXOffset;
+        y = y - window.pageYOffset;
+        return {
+          x: x,
+          y: y
+        };
+      }
+    }
+
+  </script>
+
+</head>
+
+<body>
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="login-wrap">
+                        <div class="login-html">
+                          <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+                          <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+                          <div class="login-form">
+                            <div class="sign-in-htm">
+                              <div class="group">
+                                <label for="user" class="label">Username</label>
+                                <input id="user" type="text" class="input">
+                              </div>
+                              <div class="group">
+                                <label for="pass" class="label">Password</label>
+                                <input id="pass" type="password" class="input" data-type="password">
+                              </div>
+                              <div class="group">
+                                <input id="check" type="checkbox" class="check" checked>
+                                <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                              </div>
+                              <div class="group">
+                                <input type="submit" class="button" value="Sign In">
+                              </div>
+                              <div class="hr"></div>
+                              <div class="foot-lnk">
+                                <a href="#forgot" class="for-1">Forgot Password?</a>
+                              </div>
+                            </div>
+                            <div class="sign-up-htm">
+                              <div class="group">
+                                <label for="user" class="label">Username</label>
+                                <input id="user" type="text" class="input">
+                              </div>
+                              <div class="group">
+                                <label for="pass" class="label">Password</label>
+                                <input id="pass" type="password" class="input" data-type="password">
+                              </div>
+                              <div class="group">
+                                <label for="pass" class="label">Repeat Password</label>
+                                <input id="pass" type="password" class="input" data-type="password">
+                              </div>
+                              <div class="group">
+                                <label for="pass" class="label">Email Address</label>
+                                <input id="pass" type="text" class="input">
+                              </div>
+                              <div class="group">
+                                <input type="submit" class="button" value="Sign Up">
+                              </div>
+                              <div class="hr"></div>
+                              <div class="foot-lnk">
+                                <label class="for-1" for="tab-1"><a href="#"> Already Member?</a></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    <!--Start smallnav -->
+    <div class="smallNav" id="top">
+      <div class="container">
+        <div class="text-uppercase">FREE SHIPPING ON ORDER OVER 200 le</div>
+      </div>
+    </div>
+    <!--End smallnav -->
+    <!--*******************************************************************************************-->
+    <header>
+      <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+          <a class="navbar-brand" href="PROJECT.html"><img src="img/logo.png" height="auto;" ></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="mr-auto"></div>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="PROJECT.html">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Product.html">Product</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="About%20us.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Contact%20Us.html">Contact Us</a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">LOGIN/SIGNUP</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Blog.html">Blogs</a>
+              </li>
+              
+              <li class="list-inline-item SRBAR text-center">
+                <div class="container h-100">
+                  <div class="d-flex justify-content-center h-100">
+                    <div class="searchbar">
+                      <input class="search_input" type="text" name="" placeholder="  Search... ">
+                      <a href="err-page.html" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-inline-item text-center">
+                <a class="btn-l  btnn mx-1 " href="Wishlist.html">
+                  <i class="far fa-heart"></i><span class="badge badge-secondary">1</span>
+                </a>
+              </li>
+              <li class="list-inline-item text-center">
+                <a class="btn-l  btnn mx-1 " href="Cart.html">
+                  <i class="fas fa-shopping-cart"></i><span class="badge badge-secondary">2</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+  <!--*******************************************************************************************-->
+  <!--banner-->
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4 text-center">Single Product</h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="PROJECT.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Single Product</li>
+      </ol>
+    </div>
+  </div>
+  <!--************************************************************************************-->
+  <section class="slider">
+    <div class="owl-carousel owl-theme">
+      <div class="items">
+        <img src="img/brand11.png" alt="">
+      </div>
+      <div class="items">
+        <img src="img/brand13.png" alt="">
+      </div>
+      <div class="items">
+        <img src="img/brand14.png" alt="">
+      </div>
+      <div class="items">
+        <img src="img/brand15.png" alt="">
+      </div>
+      <div class="items">
+        <img src="img/brand11.png" alt="">
+      </div>
+      <div class="items">
+        <img src="img/brand12.png" alt="">
+      </div>
+    </div>
+  </section>
+  <!--************************************************************************************-->
+  <section class="details">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-12 mt-5 mb-5">
+          <h3 style="text-align: center;">Check out our products</h3>
+          <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-12 col-12">
+              <div class="img-zoom-container mt-5">
+                <img id="myimage" src="img/p9.jpg" width="100%px" height="300px;">
+              </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12 col-12">
+              <div id="myresult" class="img-zoom-result mt-5"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-5 mb-5">
+              <h3>Carrot</h3>
+              <div class="row mb-3">
+                <div class="col-3">
+                  <div>
+                    <a href=""><i class="far fa-star"></i></a>
+                    <a href=""><i class="far fa-star"></i></a>
+                    <a href=""><i class="far fa-star"></i></a>
+                    <a href=""><i class="far fa-star"></i></a>
+                    <a href=""><i class="far fa-star"></i></a>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div>100 Ratting</div>
+                </div>
+                <div class="col-3">
+                  <div>500 sold</div>
+                </div>
+              </div>
+              <span class="pricee">$ 120.00</span>
+              <p style="line-height: 2;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt nisi et sem pretium, eget vehicula sem malesuada. Fusce ornare tortor a erat tincidunt, vitae dictum ipsum molestie. Praesent porttitor lorem eu metus auctor feugiat. Pellentesque vel dui leo. Duis quis velit nulla. Nullam luctus, nunc vel semper volutpat, odio nunc tristique purus, sit amet tempor tortor sapien eu erat. Vestibulum tincidunt justo urna, eu blandit tellus ultricies ullamcorper. Curabitur </p>
+              <div class="row mb-3">
+                <div class="col-6 mt-3">
+                  <div class="form-group">
+                    <label for="inputcountry">Size</label>
+                    <select id="inputcountry" class="form-control">
+                      <option selected>Small</option>
+                      <option>Medium</option>
+                      <option>Larg</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6" ml-5>
+                  <div class="qty mt-5">
+                    <span class="minus bg-dark">-</span>
+                    <input type="number" class="count" name="qty" value="1">
+                    <span class="plus bg-dark">+</span>
+                  </div>
+                </div>
+                <a href="Cart.html" class="btn check">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+              <h3 style="text-align:center">Related Products</h3>
+              <div class="container">
+                <div class="mySlides">
+                  <div class="numbertext">1 / 6</div>
+                  <img src="img/p1.jpg" style="width:100%; height: 300px;">
+                </div>
+                <div class="mySlides">
+                  <div class="numbertext">2 / 6</div>
+                  <img src="img/p2.jpg" style="width:100%; height: 300px;">
+                </div>
+                <div class="mySlides">
+                  <div class="numbertext">3 / 6</div>
+                  <img src="img/p3.jpg" style="width:100%; height: 300px;">
+                </div>
+                <div class="mySlides">
+                  <div class="numbertext">4 / 6</div>
+                  <img src="img/p4.jpg" style="width:100%; height: 300px;">
+                </div>
+                <div class="mySlides">
+                  <div class="numbertext">5 / 6</div>
+                  <img src="img/p5.jpg" style="width:100%; height: 300px;">
+                </div>
+                <div class="mySlides">
+                  <div class="numbertext">6 / 6</div>
+                  <img src="img/p6.jpg" style="width:100%; height: 300px;">
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+                <div class="row">
+                  <div class="column">
+                    <img class="demo cursor" src="img/p1.jpg" style="width:100%" onclick="currentSlide(1)">
+                  </div>
+                  <div class="column">
+                    <img class="demo cursor" src="img/p2.jpg" style="width:100%" onclick="currentSlide(2)">
+                  </div>
+                  <div class="column">
+                    <img class="demo cursor" src="img/p3.jpg" style="width:100%" onclick="currentSlide(3)">
+                  </div>
+                  <div class="column">
+                    <img class="demo cursor" src="img/p4.jpg" style="width:100%" onclick="currentSlide(4)">
+                  </div>
+                  <div class="column">
+                    <img class="demo cursor" src="img/p5.jpg" style="width:100%" onclick="currentSlide(5)">
+                  </div>
+                  <div class="column">
+                    <img class="demo cursor" src="img/p6.jpg" style="width:100%" onclick="currentSlide(6)">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+          <div class="catigory">
+            <h3>Catigory</h3>
+            <ul>
+              <li><a href="err-page.html">Vegetables <span>(18)</span></a></li>
+              <li><a href="err-page.html">Fruits <span>(18)</span></a></li>
+              <li><a href="err-page.html">Salad<span>(18)</span></a></li>
+            </ul>
+          </div>
+          <div class="recent">
+            <div class="row">
+              <h3>Recent Blogs</h3>
+              <div class="flip-card col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <img src="img/image_6.jpg" alt="" style="width: 100%; height: 400px; margin: auto;">
+                  </div>
+                  <div class="flip-card-back">
+                    <h5 class=" mt-5">Even the all-powerful Pointing has no control about the blind texts</h5>
+                    <p style="color: #aaa">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p style="color: #aaa">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flip-card col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <img src="img/image_5.jpg" alt="" style="width: 100%; height: 400px; margin: auto;">
+                  </div>
+                  <div class="flip-card-back">
+                    <h5 class=" mt-5">Even the all-powerful Pointing has no control about the blind texts</h5>
+                    <p style="color: #aaa">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p style="color: #aaa">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--************************************************************************************-->
+  <!-- Start Testimonial -->
+  <section class="testemonial">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner   text-center">
+        <div class="carousel-item active">
+          <h1>Our satisfied customer says</h1>
+          <p class="testimonial-text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+          <img src="img/member3.png" class="rounded-circle" alt="">
+          <p>User Name : <span class="text-muted"> Super Mario</span></p>
+          <p class="comment">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolorum quisquam, provident fuga illo eum id saepe nisi in aspernatur, dolore porro sit quam veniam at ipsa necessitatibus nulla, aperiam.</p>
+          <small class="text-muted">6-10-2019</small>
+          <p></p>
+        </div>
+        <div class="carousel-item">
+          <h1>Our satisfied customer says</h1>
+          <p class="testimonial-text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+          <img src="img/member2.png" class="rounded-circle" alt="">
+          <p>User Name : <span class="text-muted"> Super Mario</span></p>
+          <p class="comment">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolorum quisquam, provident fuga illo eum id saepe nisi in aspernatur, dolore porro sit quam veniam at ipsa necessitatibus nulla, aperiam.</p>
+          <small class="text-muted">6-10-2019</small>
+          <p></p>
+        </div>
+        <div class="carousel-item">
+          <h1>Our satisfied customer says</h1>
+          <p class="testimonial-text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+          <img src="img/member4.jpg" class="rounded-circle" alt="">
+          <p>User Name : <span class="text-muted"> Super Mario</span></p>
+          <p class="comment">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolorum quisquam, provident fuga illo eum id saepe nisi in aspernatur, dolore porro sit quam veniam at ipsa necessitatibus nulla, aperiam.</p>
+          <small class="text-muted">6-10-2019</small>
+          <p></p>
+        </div>
+        <div class="carousel-item">
+          <h1>Our satisfied customer says</h1>
+          <p class="testimonial-text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+          <img src="img/member1.png" class="rounded-circle" alt="">
+          <p>User Name : <span class="text-muted"> Super Mario</span></p>
+          <p class="comment">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolorum quisquam, provident fuga illo eum id saepe nisi in aspernatur, dolore porro sit quam veniam at ipsa necessitatibus nulla, aperiam.</p>
+          <small class="text-muted">6-10-2019</small>
+          <p></p>
+        </div>
+        <div class="carousel-item">
+          <h1>Our satisfied customer says</h1>
+          <p class="testimonial-text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+          <img src="img/member5.jpg" class="rounded-circle" alt="">
+          <p>User Name : <span class="text-muted"> Super Mario</span></p>
+          <p class="comment">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolorum quisquam, provident fuga illo eum id saepe nisi in aspernatur, dolore porro sit quam veniam at ipsa necessitatibus nulla, aperiam.</p>
+          <small class="text-muted">6-10-2019</small>
+          <p></p>
+        </div>
+        <div class="carousel-item">
+          <h1>Our satisfied customer says</h1>
+          <p class="testimonial-text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+          <img src="img/member6.jpg" class="rounded-circle" alt="">
+          <p>User Name : <span class="text-muted"> Super Mario</span></p>
+          <p class="comment">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus dolorum quisquam, provident fuga illo eum id saepe nisi in aspernatur, dolore porro sit quam veniam at ipsa necessitatibus nulla, aperiam.</p>
+          <small class="text-muted">6-10-2019</small>
+          <p></p>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </section>
+  <!--*******************************************************************************************-->
+  <a href="#" ID="backToTop"><i class="fas fa-chevron-up"></i></a>
+    <!-- Start Footer -->
+    <footer class="page-footer font-small  pt-4" style="background-color:#1e1e27; color: #fff;">
+      <div class="container text-center text-md-left">
+        <div class="row text-center text-md-left mt-3 pb-3">
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <img src="img/logo.png" alt="">
+            <p class="text pt-3">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <div class="col-md-12">
+            <form class="input-group justify-content-center">
+              <input type="text" class="form-control form-control-sm" placeholder="Your email" aria-label="Your email" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-l " type="button"><i class="fas fa-sign-in-alt"></i></button>
+              </div>
+            </form>
+          </div>
+          </div>
+          <hr class="w-100 clearfix d-md-none">
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+            <p><a href="err-page.html">Vegetables</a></p>
+            <p><a href="err-page.html">Fruits</a></p>
+            <p><a href="err-page.html">Salad</a></p>
+          </div>
+          <hr class="w-100 clearfix d-md-none">
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Useful links</h6>
+            <p><a href="Product.html">Product</a></p>
+            <p><a href="About%20us.html">About Us</a></p>
+            <p><a href="">Contact Us</a></p>
+            <p><a data-toggle="modal" data-target="#exampleModal" href="#">LOGIN/SIGNUP</a></p>
+          </div>
+          <hr class="w-100 clearfix d-md-none">
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> Shebin elokom Menofia</p>
+            <p><i class="fas fa-envelope mr-3"></i> moh.hat226@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> + 01022070283</p>
+            <p><i class="fas fa-print mr-3"></i> + 01022070283</p>
+          </div>
+        </div>
+        <hr>
+        <div class="row d-flex align-items-center">
+          <div class="col-md-7 col-lg-8">
+            <p class="text-center text-md-left">© 2020 Copyright:<a href="#"><strong> OUR TEAM</strong></a></p>
+          </div>
+          <div class="col-md-5 col-lg-4 ml-lg-0">
+            <div class="text-center text-md-right">
+              <ul class="list-unstyled list-inline text-center">
+                <li class="list-inline-item">
+                  <a class="btn-l  btnn mx-1 " href="#">
+                    <i class="fab fa-linkedin-in"></i></a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-l  btnn mx-1 " href="#">
+                    <i class="fab fa-instagram"></i></a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-l  btnn mx-1 " href="#">
+                    <i class="fab fa-twitter"></i></a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="btn-l  btnn mx-1 " href="#">
+                    <i class="fab fa-facebook-f"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+  <!--*******************************************************************************************-->
+  <script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("demo");
+      var captionText = document.getElementById("caption");
+      if (n > slides.length) {
+        slideIndex = 1
+      }
+      if (n < 1) {
+        slideIndex = slides.length
+      }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+      captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+
+  </script>
+  <script>
+    // Initiate zoom effect:
+    imageZoom("myimage", "myresult");
+
+  </script>
+     <!--*******************************************************************************************-->
+    <script src="js/jQuery%203.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/all.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/ow.js"></script>
+        
+
+  </body>
+
+  </html>
